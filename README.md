@@ -1,4 +1,4 @@
-## Full stack NFT marketplace built with Polygon, Solidity, IPFS, & Next.js
+## Full stack NFT marketplace 
 
 
 To run this project locally, follow these steps.
@@ -6,9 +6,7 @@ To run this project locally, follow these steps.
 1. Clone the project locally, change into the directory, and install the dependencies:
 
 ```sh
-git clone https://github.com/dabit3/polygon-ethereum-nextjs-marketplace.git
 
-cd polygon-ethereum-nextjs-marketplace
 
 # install using NPM or Yarn
 npm install
@@ -77,8 +75,6 @@ module.exports = {
     }
   }
 };
-```
 
-If using Infura, update __.infuraid__ with your [Infura](https://infura.io/) project ID.
 
-Please Mohammed and Sama, use your own credentials from Metamask (mnemonic) and your INFURA ID to deploy the smart contracts. If you can not, just deploy it in REMIX ID
+
