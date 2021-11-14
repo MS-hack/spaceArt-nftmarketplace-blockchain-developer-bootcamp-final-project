@@ -25,10 +25,9 @@ contract NFTMarket is ReentrancyGuard {
     uint256 tokenId;
     address payable seller;
     address payable owner;
-    string category;
     uint256 price;
     bool sold;
-    
+     uint category;
   }
 
   mapping(uint256 => MarketItem) private idToMarketItem;
@@ -39,10 +38,9 @@ contract NFTMarket is ReentrancyGuard {
     uint256 indexed tokenId,
     address seller,
     address owner,
-    string category,
     uint256 price,
-    bool sold
-    
+    bool sold,
+    uint category
   );
 
   /* Returns the listing price of the contract */
@@ -54,8 +52,7 @@ contract NFTMarket is ReentrancyGuard {
   function createMarketItem(
     address nftContract,
     uint256 tokenId,
-    uint256 price,
-    string calldata category
+    uint256 price
     
   ) public payable nonReentrant {
     require(price > 0, "Price must be at least 1 wei");
@@ -70,10 +67,9 @@ contract NFTMarket is ReentrancyGuard {
       tokenId,
       payable(msg.sender),
       payable(address(0)),
-      category,
       price,
-      false
-      
+      false,
+      1
     );
 
     IERC721(nftContract).transferFrom(msg.sender, address(this), tokenId);
@@ -84,9 +80,9 @@ contract NFTMarket is ReentrancyGuard {
       tokenId,
       msg.sender,
       address(0),
-      category,
       price,
-      false
+      false,
+      1
     );
   }
 
@@ -128,43 +124,25 @@ contract NFTMarket is ReentrancyGuard {
 
 /* Returns Category */
 
-  function getItemsByCategory(string calldata category)
-        public
-        view
-        returns (MarketItem[] memory)
-    {
-        uint256 totalItemCount = _itemIds.current();
-        uint256 itemCount = 0;
-        uint256 currentIndex = 0;
+  function fetchMarketItemsbycat(uint cat) public view returns (MarketItem[] memory) {
+    uint itemCount = _itemIds.current();
+    uint unsoldItemCount = _itemIds.current() - _itemsSold.current();
+    uint currentIndex = 0;
 
-        for (uint256 i = 0; i < totalItemCount; i++) {
-            if (
-                keccak256(abi.encodePacked(idToMarketItem[i + 1].category)) ==
-                keccak256(abi.encodePacked(category)) &&
-                idToMarketItem[i + 1].owner == address(0)
-            ) {
-                itemCount += 1;
-            }
+    MarketItem[] memory items = new MarketItem[](unsoldItemCount);
+    for (uint i = 0; i < itemCount; i++) {
+      if (idToMarketItem[i + 1].owner == address(0)) {
+        uint currentId = i + 1;
+        MarketItem storage currentItem = idToMarketItem[currentId];
+        if(currentItem.category==cat){
+        items[currentIndex] = currentItem;
+        currentIndex += 1;
         }
-
-        MarketItem[] memory marketItems = new MarketItem[](itemCount);
-        for (uint256 i = 0; i < totalItemCount; i++) {
-            if (
-                keccak256(abi.encodePacked(idToMarketItem[i + 1].category)) ==
-                keccak256(abi.encodePacked(category)) &&
-                idToMarketItem[i + 1].owner == address(0)
-            ) {
-                uint256 currentId = idToMarketItem[i + 1].itemId;
-                MarketItem storage currentItem = idToMarketItem[currentId];
-                marketItems[currentIndex] = currentItem;
-                currentIndex += 1;
-            }
-        }
-        return marketItems;
+      }
     }
+    return items;
+  }
   
-
-
   /* Returns onlyl items that a user has purchased */
   function fetchMyNFTs() public view returns (MarketItem[] memory) {
     uint totalItemCount = _itemIds.current();

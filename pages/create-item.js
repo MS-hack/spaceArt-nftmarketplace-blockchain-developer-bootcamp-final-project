@@ -19,9 +19,8 @@ export default function CreateItem() {
   const [formInput, updateFormInput] = useState({
      price: '',
       name: '',
-      category:'',
-       description: ''
-        })
+       description: '',
+       category:'' })
   const router = useRouter()
 
   async function onChange(e) {
@@ -40,8 +39,8 @@ export default function CreateItem() {
     }  
   }
   async function createMarket() {
-    const { name, description, price ,category} = formInput;
-    if (!name || !description || !price || !fileUrl||!category) return;
+    const { name, description, price ,category} = formInput
+    if (!name || !description || !price || !fileUrl||!category) return
     /* first, upload to IPFS */
     const data = JSON.stringify({
       name, description, image: fileUrl
@@ -63,7 +62,6 @@ export default function CreateItem() {
     const signer = provider.getSigner();
     
     /* next, create the item */
-    try {
     let contract = new ethers.Contract(nftaddress, NFT.abi, signer)
     let transaction = await contract.createToken(url)
     let tx = await transaction.wait()
@@ -73,38 +71,23 @@ export default function CreateItem() {
 
     const price = ethers.utils.parseUnits(formInput.price, 'ether')
   
-    /* then list the item for sale on the marketpace */
+    /* then list the item for sale on the marketplace */
     contract = new ethers.Contract(nftmarketaddress, Market.abi, signer)
     let listingPrice = await contract.getListingPrice()
     listingPrice = listingPrice.toString()
 
-    transaction = await contract.createMarketItem(nftaddress,
-       tokenId,
-        price,
-        formInput.category,
-         { value: listingPrice })
+    transaction = await contract.createMarketItem(nftaddress, tokenId, price, { value: listingPrice })
     await transaction.wait()
     router.push('/')
-  }catch (error) {
-    console.log(error);
   }
  
-
-  const handleChange = (e) => {
-    updateFormInput((prevValues) => {
-     return {
-      ...prevValues,
-      [e.target.name]: e.target.value,
-     };
-    });
- };
-
- useEffect(() => console.log(formInput), [formInput]);
-
-
   return (
     <div>
-     
+      <div id="particles-js"></div>
+      <script src="particles.js"></script>
+      
+      <br/>
+      <br/>
       <br/>
       <br/>
       <br/>
@@ -128,8 +111,7 @@ export default function CreateItem() {
           className="mt-8 border rounded p-4"
           onChange={e => updateFormInput({ ...formInput, name: e.target.value })}
         />
-       <select className="mt-8 border rounded p-4" name="category" id="category" 
-       onChange={handleChange}>
+       <select className="mt-8 border rounded p-4" name="category" id="category" onChange={e => updateFormInput({ ...formInput, category: e.target.value })}>
                   <option value="">Select a category</option>
                   <option value="1">All Nft</option>
                   <option value="2">Art</option>
@@ -159,11 +141,9 @@ export default function CreateItem() {
             <img className="rounded mt-4" width="350" src={fileUrl} />
           )
         }
-        
-        
-        
+         
         <button onClick={
-          createMarket} className="font-bold mt-4 bg-blue-500 text-white rounded p-4 shadow-lg">
+          createMarket} className="font-bold mt-4 bg-green-500 text-white rounded p-4 shadow-lg">
           Submit
         </button>
       </div>
@@ -178,5 +158,4 @@ export default function CreateItem() {
 </section>
     </div>
   )
-}
 }
