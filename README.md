@@ -8,15 +8,13 @@ To run this project locally, follow these steps.
 ```sh
 
 
-# install using NPM or Yarn
-npm install
+# install ONLY use Yarn
 
-# or
 
 yarn
 ```
 
-2. Start the local Hardhat node
+2. Start the local Hardhat node (only for localhost), we test it on Ropsten, don't need step 2)
 
 ```sh
 npx hardhat node
@@ -25,13 +23,33 @@ npx hardhat node
 3. With the network running, deploy the contracts to the local network in a separate terminal window
 
 ```sh
-npx hardhat run scripts/deploy.js --network localhost
+npx hardhat run scripts/deploy.js
 ```
 
 4. Start the app
 
 ```
-npm run dev
+yarn build
+yarn dev
+```
+
+5. verify your smart contracts on Etherscan
+
+ceate .env with (use your Etherscan API token)
+```
+ETHERSCAN_API_KEY=IYXRK5YX25T99ISP1DQXCTRKFJDZYT25
+```
+
+then, find your smart contracts addresses in config.js
+```
+  export const nftmarketaddress = "0x2505A01DFaDb8ee45168e9061Cd93552ca14CF60"
+  export const nftaddress = "0xF69fca30D6BF365A31650cB3Be2bf752cD1A2De2"
+```
+
+
+```sh
+npx hardhat verify 0x2505A01DFaDb8ee45168e9061Cd93552ca14CF60
+npx hardhat verify 0xF69fca30D6BF365A31650cB3Be2bf752cD1A2De2 "0x2505A01DFaDb8ee45168e9061Cd93552ca14CF60"
 ```
 
 ### Configuration
