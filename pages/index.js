@@ -46,6 +46,7 @@ export default function Home() {
         description: meta.data.description,
         category:meta.data.category,
       }
+      console.log(item)
       return item
     }))
     setNfts(items)
