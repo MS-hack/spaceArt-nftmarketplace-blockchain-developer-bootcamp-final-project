@@ -51,27 +51,27 @@ contract NFTMarket is ReentrancyGuard {
   /* Returns the category of the contract */
   
    function getcategory(uint f) public pure returns (string  memory ) {
-    if(f==1)
+    if(f==0)
      {
        return "All";
      }
-     else if(f==2)
+     else if(f==1)
      {
        return "ART";
      }
-       else if(f==3)
+       else if(f==2)
      {
        return "Music";
      }
-       else if(f==4)
+       else if(f==3)
      {
        return "video";
      }
-       else if(f==5)
+       else if(f==4)
      {
        return "Meme";
      }
-      else if(f==6)
+      else if(f==5)
      {
        return "Gif";
      }

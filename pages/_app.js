@@ -1,6 +1,7 @@
 import 'tailwindcss/tailwind.css'
 import '../styles/globals.css'
 import Link from 'next/link'
+import getUser from '../components/getUser'
 
 function Marketplace({ Component, pageProps }) {
   return (
@@ -14,7 +15,7 @@ function Marketplace({ Component, pageProps }) {
                 <a href="/create-item"  className="hidden xl:block font-abhaya-libre uppercase text-gray-800 tracking-wider px-4 xl:px-8 py-2 text-lg hover:underline">Create</a>
                 <a href="/my-assets"  className="hidden xl:block font-abhaya-libre uppercase text-gray-800 tracking-wider px-4 xl:px-8 py-2 text-lg hover:underline">My Assets</a>
                 <a href="/creator-dashboard"  className="hidden xl:block font-abhaya-libre uppercase text-gray-800 tracking-wider px-4 xl:px-8 py-2 text-lg hover:underline">dashboard</a>
-                <a href="/getUser"  className="hidden xl:block font-abhaya-libre uppercase text-gray-800 tracking-wider px-4 xl:px-8 py-2 text-lg hover:underline">login</a>
+                <a href="/getUser"  className="hidden xl:block font-abhaya-libre uppercase text-gray-800 tracking-wider px-4 xl:px-8 py-2 text-lg hover:underline" onClick={() => getUser}>login</a>
 
                 <button className="ml-4 xl:ml-8 flex flex-col">
                     <span className="w-8 h-1 bg-gray-800 mb-1 rounded"></span>
