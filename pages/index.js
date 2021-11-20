@@ -36,6 +36,7 @@ export default function Home() {
       const tokenUri = await tokenContract.tokenURI(i.tokenId)
       const meta = await axios.get(tokenUri)
       let price = ethers.utils.formatUnits(i.price.toString(), 'ether')
+      let categoryname= await marketContract.getcategory(meta.data.category)
       let item = {
         price,
         tokenId: i.tokenId.toNumber(),
@@ -45,8 +46,8 @@ export default function Home() {
         name: meta.data.name,
         description: meta.data.description,
         category:meta.data.category,
+        categoryn:categoryname
       }
-      console.log(item)
       return item
     }))
     setNfts(items)
@@ -63,7 +64,8 @@ export default function Home() {
     const signer = provider.getSigner();
     const tokenContract = new ethers.Contract(nftaddress, NFT.abi, provider)
     const marketContract = new ethers.Contract(nftmarketaddress, Market.abi, provider)
-    const data = await marketContract.fetchMarketItemsbycat(o)
+    const data = await marketContract.getItemsByCategory(o)
+    
     
     const items = await Promise.all(data.map(async i => {
       const tokenUri = await tokenContract.tokenURI(i.tokenId)
@@ -98,7 +100,9 @@ export default function Home() {
     await transaction.wait()
     loadNFTs()
   }
+ 
   if (loadingState === 'loaded' && !nfts.length) return (<h1 className="px-20 py-10 text-3xl">No items in marketplace</h1>)
+
   return (
 
     <div>
@@ -113,47 +117,42 @@ export default function Home() {
     <div className="flex flex-wrap mt-0 justify-center">
         <div className="m-1">
           <a href="#" title="All Nft"
-             className="md:w-32 bg-white tracking-wide text-blue-800 font-bold rounded border-2 border-blue-500 hover:blue-400 hover:bg-blue-600 hover:text-white shadow-md py-2 px-6 inline-flex items-center" onClick={() => loadNFTsbycat(1)} >
+             className="md:w-32 bg-white tracking-wide text-green-800 font-bold rounded border-2 border-green-500 hover:green-400 hover:bg-green-600 hover:text-white shadow-md py-2 px-6 inline-flex items-center" onClick={() => loadNFTs()} >
             <span className="mx-auto">All Nft</span>
           </a>
         </div>
         <div className="m-1">
           <a href="#" title="Art"
-             className="md:w-32 bg-white tracking-wide text-blue-800 font-bold rounded border-2 border-blue-500 hover:blue-400 hover:bg-blue-600 hover:text-white shadow-md py-2 px-6 inline-flex items-center">
+             className="md:w-32 bg-white tracking-wide text-green-800 font-bold rounded border-2 border-green-500 hover:green-400 hover:bg-green-600 hover:text-white shadow-md py-2 px-6 inline-flex items-center">
             <span className="mx-auto"  onClick={() => loadNFTsbycat(2)}>Art</span>
           </a>
         </div>
         <div className="m-1">
-          <a href="/" title="Music"
-             className="md:w-32 bg-white tracking-wide text-blue-800 font-bold rounded border-2 border-blue-500 hover:blue-400 hover:bg-blue-600 hover:text-white shadow-md py-2 px-6 inline-flex items-center">
-            <span className="mx-auto">Music</span>
+          <a href="#" title="Music"
+             className="md:w-32 bg-white tracking-wide text-green-800 font-bold rounded border-2 border-green-500 hover:green-400 hover:bg-green-600 hover:text-white shadow-md py-2 px-6 inline-flex items-center">
+            <span className="mx-auto" onClick={() => loadNFTsbycat(3)}>Music</span>
           </a>
         </div>
         <div className="m-1">
-          <a href="/" title="video"
-             className="md:w-32 bg-white tracking-wide text-blue-800 font-bold rounded border-2 border-blue-500 hover:blue-400 hover:bg-blue-600 hover:text-white shadow-md py-2 px-6 inline-flex items-center">
-            <span className="mx-auto">video</span>
+          <a href="#" title="video"
+             className="md:w-32 bg-white tracking-wide text-green-800 font-bold rounded border-2 border-green-500 hover:green-400 hover:bg-green-600 hover:text-white shadow-md py-2 px-6 inline-flex items-center">
+            <span className="mx-auto" onClick={() => loadNFTsbycat(4)}>video</span>
+          </a>
+        </div>
+
+        
+
+        <div className="m-1">
+          <a href="#" title="Meme"
+             className="md:w-32 bg-white tracking-wide text-green-800 font-bold rounded border-2 border-green-500 hover:green-400 hover:bg-green-600 hover:text-white shadow-md py-2 px-6 inline-flex items-center">
+            <span className="mx-auto" onClick={() => loadNFTsbycat(5)}>Meme</span>
           </a>
         </div>
 
         <div className="m-1">
-          <a href="/" title="video"
-             className="md:w-32 bg-white tracking-wide text-blue-800 font-bold rounded border-2 border-blue-500 hover:blue-400 hover:bg-blue-600 hover:text-white shadow-md py-2 px-6 inline-flex items-center">
-            <span className="mx-auto">video</span>
-          </a>
-        </div>
-
-        <div className="m-1">
-          <a href="/" title="Meme"
-             className="md:w-32 bg-white tracking-wide text-blue-800 font-bold rounded border-2 border-blue-500 hover:blue-400 hover:bg-blue-600 hover:text-white shadow-md py-2 px-6 inline-flex items-center">
-            <span className="mx-auto">Meme</span>
-          </a>
-        </div>
-
-        <div className="m-1">
-          <a href="/" title="gif"
-            className="md:w-32 bg-white tracking-wide text-blue-800 font-bold rounded border-2 border-blue-500 hover:blue-400 hover:bg-blue-600 hover:text-white shadow-md py-2 px-6 inline-flex items-center">
-            <span className="mx-auto">Gif</span>
+          <a href="#" title="gif"
+            className="md:w-32 bg-white tracking-wide text-green-800 font-bold rounded border-2 border-green-500 hover:green-400 hover:bg-green-600 hover:text-white shadow-md py-2 px-6 inline-flex items-center">
+            <span className="mx-auto" onClick={() => loadNFTsbycat(6)}>Gif</span>
           </a>
         </div>
 
@@ -196,9 +195,10 @@ export default function Home() {
           
             <div className="px-4 py-3 bg-white">
                 <a href="#" className=""><h1 className="text-gray-800 font-semibold text-lg hover:text-red-500 transition duration-300 ease-in-out">{nft.name}</h1></a>
-                <a href="#" className=""><h2 className="text-gray-800 font-semibold text-lg hover:text-red-500 transition duration-300 ease-in-out">{nft.description}</h2></a>
+                <a href="#" className="">
+                  <h2 className="text-gray-800 font-semibold text-lg hover:text-red-500 transition duration-300 ease-in-out">{nft.description}</h2></a>
 
-                <a href="#" className=""><h2 className="text-gray-800 font-semibold text-lg hover:text-red-500 transition duration-300 ease-in-out">{nft.category}</h2></a>
+                  <a href="#" className=""><h2 className="text-gray-800 font-semibold text-lg hover:text-red-500 transition duration-300 ease-in-out">{nft.categoryn}</h2></a>
 
                 <div className="flex py-2">
                     <p className="mr-2 text-xs text-gray-600">{nft.price} ETH </p>

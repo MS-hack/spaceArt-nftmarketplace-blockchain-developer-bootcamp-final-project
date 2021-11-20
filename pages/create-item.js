@@ -76,18 +76,14 @@ export default function CreateItem() {
     let listingPrice = await contract.getListingPrice()
     listingPrice = listingPrice.toString()
 
-    transaction = await contract.createMarketItem(nftaddress, tokenId, price, { value: listingPrice })
+    transaction = await contract.createMarketItem(nftaddress,
+       tokenId, price, { value: listingPrice })
     await transaction.wait()
     router.push('/')
   }
  
   return (
     <div>
-      <div id="particles-js"></div>
-      <script src="particles.js"></script>
-      
-      <br/>
-      <br/>
       <br/>
       <br/>
       <br/>
@@ -111,7 +107,8 @@ export default function CreateItem() {
           className="mt-8 border rounded p-4"
           onChange={e => updateFormInput({ ...formInput, name: e.target.value })}
         />
-       <select className="mt-8 border rounded p-4" name="category" id="category" onChange={e => updateFormInput({ ...formInput, category: e.target.value })}>
+           <select className="mt-8 border rounded p-4" name="category" id="category" 
+       onChange={e => updateFormInput({ ...formInput, category: e.target.value })}>
                   <option value="">Select a category</option>
                   <option value="1">All Nft</option>
                   <option value="2">Art</option>
@@ -143,7 +140,7 @@ export default function CreateItem() {
         }
          
         <button onClick={
-          createMarket} className="font-bold mt-4 bg-green-500 text-white rounded p-4 shadow-lg">
+          createMarket} className="font-bold mt-4 bg-blue-500 text-white rounded p-4 shadow-lg">
           Submit
         </button>
       </div>

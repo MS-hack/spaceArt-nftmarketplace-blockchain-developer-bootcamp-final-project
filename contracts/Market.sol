@@ -47,7 +47,40 @@ contract NFTMarket is ReentrancyGuard {
   function getListingPrice() public view returns (uint256) {
     return listingPrice;
   }
+
+  /* Returns the category of the contract */
   
+   function getcategory(uint f) public pure returns (string  memory ) {
+    if(f==1)
+     {
+       return "All";
+     }
+     else if(f==2)
+     {
+       return "ART";
+     }
+       else if(f==3)
+     {
+       return "Music";
+     }
+       else if(f==4)
+     {
+       return "video";
+     }
+       else if(f==5)
+     {
+       return "Meme";
+     }
+      else if(f==6)
+     {
+       return "Gif";
+     }
+     else
+     {
+       return "";
+     }
+     
+  }
   /* Places an item for sale on the marketplace */
   function createMarketItem(
     address nftContract,
@@ -121,6 +154,42 @@ contract NFTMarket is ReentrancyGuard {
     }
     return items;
   }
+  function getItemsByCategory(uint category)
+        public
+        view
+        returns (MarketItem[] memory)
+    {
+        uint256 totalItemCount = _itemIds.current();
+        uint256 itemCount = 0;
+        uint256 currentIndex = 0;
+        
+        for (uint256 i = 0; i < totalItemCount; i++) {
+            if (
+                keccak256(abi.encodePacked(idToMarketItem[i + 1].category)) ==
+                keccak256(abi.encodePacked(category)) &&
+                idToMarketItem[i + 1].owner == address(0)
+            ) {
+                itemCount += 1;
+            }
+        }
+
+        MarketItem[] memory marketItems = new MarketItem[](itemCount);
+        for (uint256 i = 0; i < totalItemCount; i++) {
+            if (
+                keccak256(abi.encodePacked(idToMarketItem[i + 1].category)) ==
+                keccak256(abi.encodePacked(category)) &&
+                idToMarketItem[i + 1].owner == address(0)
+            ) {
+                uint256 currentId = idToMarketItem[i + 1].itemId;
+                MarketItem storage currentItem = idToMarketItem[currentId];
+                marketItems[currentIndex] = currentItem;
+                currentIndex += 1;
+            }
+        }
+        return marketItems;
+    }
+
+
 
 /* Returns Category */
 
@@ -131,13 +200,13 @@ contract NFTMarket is ReentrancyGuard {
 
     MarketItem[] memory items = new MarketItem[](unsoldItemCount);
     for (uint i = 0; i < itemCount; i++) {
-      if (idToMarketItem[i + 1].owner == address(0)) {
+      if (idToMarketItem[i + 1].owner == address(0)&& idToMarketItem[i + 1].category==cat) {
         uint currentId = i + 1;
         MarketItem storage currentItem = idToMarketItem[currentId];
-        if(currentItem.category==cat){
+        
         items[currentIndex] = currentItem;
         currentIndex += 1;
-        }
+        
       }
     }
     return items;
