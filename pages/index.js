@@ -16,7 +16,6 @@ import Market from '../artifacts/contracts/Market.sol/NFTMarket.json'
 
 export default function Home() {
   const [nfts, setNfts] = useState([])
-  const [category, setCategory] = useState('All')
   const [loadingState, setLoadingState] = useState('not-loaded')
   useEffect(() => {
     loadNFTs()
@@ -167,7 +166,6 @@ export default function Home() {
       
     <div className="flex justify-center ">
       <div className="shadow hover:shadow-lg transition duration-300 ease-in-out xl:mb-0 lg:mb-0 md:mb-0 mb-6 cursor-pointer group" style={{ maxWidth: '1100px'}}>
-     <h1>   {category} </h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-4">
           {
             nfts.map((nft, i) => (
