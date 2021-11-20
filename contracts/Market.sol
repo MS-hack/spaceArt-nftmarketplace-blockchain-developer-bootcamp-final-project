@@ -85,8 +85,8 @@ contract NFTMarket is ReentrancyGuard {
   function createMarketItem(
     address nftContract,
     uint256 tokenId,
+    uint category,
     uint256 price
-    
   ) public payable nonReentrant {
     require(price > 0, "Price must be at least 1 wei");
     require(msg.value == listingPrice, "Price must be equal to listing price");
@@ -102,7 +102,7 @@ contract NFTMarket is ReentrancyGuard {
       payable(address(0)),
       price,
       false,
-      1
+      category 
     );
 
     IERC721(nftContract).transferFrom(msg.sender, address(this), tokenId);
@@ -115,7 +115,7 @@ contract NFTMarket is ReentrancyGuard {
       address(0),
       price,
       false,
-      1
+      category
     );
   }
 

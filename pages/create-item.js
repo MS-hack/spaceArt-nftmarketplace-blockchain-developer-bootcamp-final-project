@@ -49,13 +49,13 @@ export default function CreateItem() {
       const added = await client.add(data)
       const url = `https://ipfs.infura.io/ipfs/${added.path}`
       /* after file is uploaded to IPFS, pass the URL to save it on Polygon */
-      createSale(url)
+      createSale(url, category)
     } catch (error) {
       console.log('Error uploading file: ', error)
     }  
   }
 
-  async function createSale(url) {
+  async function createSale(url, category) {
     const web3Modal = new Web3Modal()
     const connection = await web3Modal.connect()
     const provider = new ethers.providers.Web3Provider(connection)    
@@ -77,7 +77,7 @@ export default function CreateItem() {
     listingPrice = listingPrice.toString()
 
     transaction = await contract.createMarketItem(nftaddress,
-       tokenId, price, { value: listingPrice })
+       tokenId, category, price, { value: listingPrice })
     await transaction.wait()
     router.push('/')
   }
@@ -110,12 +110,12 @@ export default function CreateItem() {
            <select className="mt-8 border rounded p-4" name="category" id="category" 
        onChange={e => updateFormInput({ ...formInput, category: e.target.value })}>
                   <option value="">Select a category</option>
-                  <option value="1">All Nft</option>
-                  <option value="2">Art</option>
-                  <option value="3">Music</option>
-                  <option value="4">Video</option>
-                  <option value="5">Meme</option>
-                  <option value="6">Gif</option>
+                  <option value="0">All Nft</option>
+                  <option value="1">Art</option>
+                  <option value="2">Music</option>
+                  <option value="3">Video</option>
+                  <option value="4">Meme</option>
+                  <option value="5">Gif</option>
          </select>
         <textarea
           placeholder=" Description"

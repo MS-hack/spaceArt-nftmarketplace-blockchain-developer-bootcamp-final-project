@@ -16,6 +16,7 @@ import Market from '../artifacts/contracts/Market.sol/NFTMarket.json'
 
 export default function Home() {
   const [nfts, setNfts] = useState([])
+  const [category, setCategory] = useState('All')
   const [loadingState, setLoadingState] = useState('not-loaded')
   useEffect(() => {
     loadNFTs()
@@ -65,6 +66,8 @@ export default function Home() {
     const tokenContract = new ethers.Contract(nftaddress, NFT.abi, provider)
     const marketContract = new ethers.Contract(nftmarketaddress, Market.abi, provider)
     const data = await marketContract.getItemsByCategory(o)
+    console.log('category: ', o)
+    console.log('data: ', data)
     
     
     const items = await Promise.all(data.map(async i => {
@@ -124,19 +127,19 @@ export default function Home() {
         <div className="m-1">
           <a href="#" title="Art"
              className="md:w-32 bg-white tracking-wide text-green-800 font-bold rounded border-2 border-green-500 hover:green-400 hover:bg-green-600 hover:text-white shadow-md py-2 px-6 inline-flex items-center">
-            <span className="mx-auto"  onClick={() => loadNFTsbycat(2)}>Art</span>
+            <span className="mx-auto"  onClick={() => loadNFTsbycat(1)}>Art</span>
           </a>
         </div>
         <div className="m-1">
           <a href="#" title="Music"
              className="md:w-32 bg-white tracking-wide text-green-800 font-bold rounded border-2 border-green-500 hover:green-400 hover:bg-green-600 hover:text-white shadow-md py-2 px-6 inline-flex items-center">
-            <span className="mx-auto" onClick={() => loadNFTsbycat(3)}>Music</span>
+            <span className="mx-auto" onClick={() => loadNFTsbycat(2)}>Music</span>
           </a>
         </div>
         <div className="m-1">
           <a href="#" title="video"
              className="md:w-32 bg-white tracking-wide text-green-800 font-bold rounded border-2 border-green-500 hover:green-400 hover:bg-green-600 hover:text-white shadow-md py-2 px-6 inline-flex items-center">
-            <span className="mx-auto" onClick={() => loadNFTsbycat(4)}>video</span>
+            <span className="mx-auto" onClick={() => loadNFTsbycat(3)}>video</span>
           </a>
         </div>
 
@@ -145,14 +148,14 @@ export default function Home() {
         <div className="m-1">
           <a href="#" title="Meme"
              className="md:w-32 bg-white tracking-wide text-green-800 font-bold rounded border-2 border-green-500 hover:green-400 hover:bg-green-600 hover:text-white shadow-md py-2 px-6 inline-flex items-center">
-            <span className="mx-auto" onClick={() => loadNFTsbycat(5)}>Meme</span>
+            <span className="mx-auto" onClick={() => loadNFTsbycat(4)}>Meme</span>
           </a>
         </div>
 
         <div className="m-1">
           <a href="#" title="gif"
             className="md:w-32 bg-white tracking-wide text-green-800 font-bold rounded border-2 border-green-500 hover:green-400 hover:bg-green-600 hover:text-white shadow-md py-2 px-6 inline-flex items-center">
-            <span className="mx-auto" onClick={() => loadNFTsbycat(6)}>Gif</span>
+            <span className="mx-auto" onClick={() => loadNFTsbycat(5)}>Gif</span>
           </a>
         </div>
 
@@ -164,7 +167,7 @@ export default function Home() {
       
     <div className="flex justify-center ">
       <div className="shadow hover:shadow-lg transition duration-300 ease-in-out xl:mb-0 lg:mb-0 md:mb-0 mb-6 cursor-pointer group" style={{ maxWidth: '1100px'}}>
-        
+     <h1>   {category} </h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-4">
           {
             nfts.map((nft, i) => (
