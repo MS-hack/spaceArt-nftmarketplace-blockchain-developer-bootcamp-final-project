@@ -4,7 +4,9 @@ require('dotenv').config()
 const fs = require('fs');
 const privateKey = fs.readFileSync(".secret").toString().trim() || "";
 const infuraId = fs.readFileSync(".infuraid").toString().trim() || "";
-console.log('infuraId:',infuraId)
+//console.log('infuraId:',infuraId)
+//console.log('etherscan key', process.env.ETHERSCAN_API_KEY)
+
 module.exports = {
   defaultNetwork: "ropsten",
   networks: {
@@ -44,7 +46,7 @@ module.exports = {
     }
   },
   etherscan: {
-    apiKe:ETHERSCAN_API_KEY,
+    apiKey:process.env.ETHERSCAN_API_KEY,
   },
 };
 
