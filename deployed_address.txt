@@ -1,0 +1,4 @@
+Testnet: Reposten
+
+nft contract address : 0xdfA6a2A323854B692aE11Bd068E652D6fE25a0fb
+nftmarket contract address : 0x34E8E400BE58476977EB37c18d3C005878AB6d0C

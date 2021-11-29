@@ -1,20 +1,66 @@
-## Full stack NFT marketplace 
+# Space Art Full stack NFT marketplace is final-project to blockchain developer bootcamp-2021
+ Space Art  is an NFT store built on Polygon Blockchain ( Reposten Testnet )
+ 
+ # Tagline 
+
+ Space Art is marketplace and community where you can buy , sell and create NFT items through the usage of ethers and track the ownership of digital assets We’ll make the world where human creativity is fully respected
+
+# What I did for the Consensys blockchain developer Bootcamp :
+•	Upload website on IPFS 
+•	NFT Marketplace
+
+ # Problem it Solves 
+* **Duplicate Asset Problem**: Duplication of digital assets is not possible due to non fungibility of NFT's.
+
+* **No Tampering of Data**: No one can easily tamper the data as the data is stored on the blockchain. 
+
+* **Quick Transactions from Polygon**: Polygon provided us with *quick transaction speed* which boosted the *User Experience* of our website.
+
+* **Ownership Record Maintainance**: Ownership can be tracked easily as smart contract passes the ownership from the seller to buyer directly.
+
+* **Data Storage problem of Blockchain**: Blockchain can't be used for storing media files for media assets in an efficient manner, so we used IPFS for digital assets.
+
+# Challenges 
+1-	I was unaware of the development technology behind NFT tokens. Consequently, the most difficult thing for me, was to overcome the fear of learning a new technology such as blockchain. Thanks to Polygon, it was easily able to build NFT tokens
+2-	First time use Taiwindcss with Next.js
 
 
-To run this project locally, follow these steps.
+# public wallet address
+0x34E8E400BE58476977EB37c18d3C005878AB6d0C 
+
+
+# screencast link :
+https://www.youtube.com/watch?v=4xjcNGW6Khc
+
+
+# Technologies Used
+Polygon
+IPFS
+Next.js
+Hardhat
+Ethereum
+Solidity
+Metamask
+JavaScript
+Tailwindcss
+
+
+# To run this project locally, follow these steps.
 
 1. Clone the project locally, change into the directory, and install the dependencies:
 
 ```sh
 
 
-# install ONLY use Yarn
+# install using NPM or Yarn
+npm install
 
+# or
 
 yarn
 ```
 
-2. Start the local Hardhat node (only for localhost), we test it on Ropsten, don't need step 2)
+2. Start the local Hardhat node
 
 ```sh
 npx hardhat node
@@ -23,33 +69,13 @@ npx hardhat node
 3. With the network running, deploy the contracts to the local network in a separate terminal window
 
 ```sh
-npx hardhat run scripts/deploy.js
+npx hardhat run scripts/deploy.js --network localhost
 ```
 
 4. Start the app
 
 ```
-yarn build
-yarn dev
-```
-
-5. verify your smart contracts on Etherscan
-
-ceate .env with (use your Etherscan API token)
-```
-ETHERSCAN_API_KEY=IYXRK5YX25T99ISP1DQXCTRKFJDZYT25
-```
-
-then, find your smart contracts addresses in config.js
-```
-  export const nftmarketaddress = "0x2505A01DFaDb8ee45168e9061Cd93552ca14CF60"
-  export const nftaddress = "0xF69fca30D6BF365A31650cB3Be2bf752cD1A2De2"
-```
-
-
-```sh
-npx hardhat verify 0x2505A01DFaDb8ee45168e9061Cd93552ca14CF60
-npx hardhat verify 0xF69fca30D6BF365A31650cB3Be2bf752cD1A2De2 "0x2505A01DFaDb8ee45168e9061Cd93552ca14CF60"
+npm run dev
 ```
 
 ### Configuration
