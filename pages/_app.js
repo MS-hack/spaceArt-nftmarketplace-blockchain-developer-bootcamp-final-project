@@ -11,11 +11,12 @@ function Marketplace({ Component, pageProps }) {
         <header className="h-24 sm:h-32 flex items-center absolute top-0 right-0 z-20">
         <div className="container mx-auto px-6 sm:px-12 flex items-center justify-end">
             <nav className="flex items-center">
-                <a href="/" className="hidden xl:block font-abhaya-libre uppercase text-blue-800 tracking-wider px-4 xl:px-8 py-2 text-lg hover:underline">Marketplace</a>
-                <a href="/create-item"  className="hidden xl:block font-abhaya-libre uppercase text-gray-800 tracking-wider px-4 xl:px-8 py-2 text-lg hover:underline">Create</a>
-                <a href="/my-assets"  className="hidden xl:block font-abhaya-libre uppercase text-gray-800 tracking-wider px-4 xl:px-8 py-2 text-lg hover:underline">My Assets</a>
-                <a href="/creator-dashboard"  className="hidden xl:block font-abhaya-libre uppercase text-gray-800 tracking-wider px-4 xl:px-8 py-2 text-lg hover:underline">dashboard</a>
-                <a href="/getUser"  className="hidden xl:block font-abhaya-libre uppercase text-gray-800 tracking-wider px-4 xl:px-8 py-2 text-lg hover:underline" onClick={() => getUser}>login</a>
+                <a href="/" className="hidden xl:block font-abhaya-libre uppercase text-gray-100 tracking-wider px-4 xl:px-8 py-2 text-lg hover:underline">Marketplace</a>
+                <a href="/create-item"  className="hidden xl:block font-abhaya-libre uppercase text-white
+                 tracking-wider px-4 xl:px-8 py-2 text-lg hover:underline">Create</a>
+                <a href="/my-assets"  className="hidden xl:block font-abhaya-libre uppercase text-white tracking-wider px-4 xl:px-8 py-2 text-lg hover:underline">My Assets</a>
+                <a href="/creator-dashboard"  className="hidden xl:block font-abhaya-libre uppercase text-white tracking-wider px-4 xl:px-8 py-2 text-lg hover:underline">dashboard</a>
+                
 
                 <button className="ml-4 xl:ml-8 flex flex-col">
                     <span className="w-8 h-1 bg-gray-800 mb-1 rounded"></span>
