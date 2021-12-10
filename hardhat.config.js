@@ -8,7 +8,7 @@ const infuraId = fs.readFileSync(".infuraid").toString().trim() || "";
 //console.log('etherscan key', process.env.ETHERSCAN_API_KEY)
 
 module.exports = {
-  defaultNetwork: "ropsten",
+  defaultNetwork: "mumbai",
   networks: {
     hardhat: {
       chainId: 1337,
@@ -47,6 +47,7 @@ module.exports = {
   },
   etherscan: {
     apiKey:process.env.ETHERSCAN_API_KEY,
+    //apiKey: polygonscanApiKey
   },
 };
 
