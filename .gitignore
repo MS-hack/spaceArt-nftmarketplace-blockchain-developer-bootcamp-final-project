@@ -2,6 +2,7 @@
 
 .secret
 .infuraid
+.alchemyId
 
 # dependencies
 /node_modules

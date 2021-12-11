@@ -4,6 +4,8 @@ require('dotenv').config()
 const fs = require('fs');
 const privateKey = fs.readFileSync(".secret").toString().trim() || "";
 const infuraId = fs.readFileSync(".infuraid").toString().trim() || "";
+const alchemyId = fs.readFileSync(".alchemyId").toString().trim() || "";
+
 //console.log('infuraId:',infuraId)
 //console.log('etherscan key', process.env.ETHERSCAN_API_KEY)
 
@@ -22,9 +24,8 @@ module.exports = {
   
     },
     mumbai: {
-      // Infura
-      // url: `https://polygon-mumbai.infura.io/v3/${infuraId}`
-      url: `https://polygon-mumbai.infura.io/v3/${infuraId}`,
+      // Alchemy
+      url: `https://polygon-mumbai.g.alchemy.com/v2/${alchemyId}`,
       accounts: [privateKey]
     },
    
