@@ -58,13 +58,10 @@ export default function CreatorDashboard() {
     
     <div>
       <br/>
+      <img src="https://images.unsplash.com/photo-1499336315816-097655dcfbda?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=2710&amp;q=80" alt=""/>
+
       <br/>
-      <br/>
-      <br/>
-      <br/>
-      <br/>
-      <br/>
-      <h2 className="text-2xl py-2">Items Created</h2>
+      <h2 className="text-4xl py-2 text-center">Items Created</h2>
       
       <div className="flex justify-center">
       <div className="shadow hover:shadow-lg transition duration-300 ease-in-out xl:mb-0 lg:mb-0 md:mb-0 mb-6 cursor-pointer group" style={{ maxWidth: '1100px'}}>
@@ -75,7 +72,7 @@ export default function CreatorDashboard() {
               <div key={i} className="shadow hover:shadow-lg transition duration-300 ease-in-out xl:mb-0 lg:mb-0 md:mb-0 mb-6 cursor-pointer group">
                    <div class="overflow-hidden relative">
                 <img src={nft.image} className="w-full h-56 transition duration-700 ease-in-out group-hover:opacity-60" />
-                
+
                 <div className="p-4 bg-white">
                   <p className="text-2xl font-bold text-black">Price - {nft.price} Eth</p>
                 </div>
@@ -93,7 +90,7 @@ export default function CreatorDashboard() {
         {
           Boolean(sold.length) && (
             <div>
-              <h2 className="text-2xl py-2">Items sold</h2>
+              <h2 className="text-4xl py-2 text-center">Items sold</h2>
               <div className="flex justify-center">
       <div className="shadow hover:shadow-lg transition duration-300 ease-in-out xl:mb-0 lg:mb-0 md:mb-0 mb-6 cursor-pointer group" style={{ maxWidth: '1100px'}}>
 

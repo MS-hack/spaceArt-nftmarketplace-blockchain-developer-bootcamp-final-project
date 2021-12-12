@@ -84,9 +84,9 @@ export default function CreateItem() {
  
   return (
     <div>
-      <br/>
-      <br/>
-      <br/>
+
+      
+        <img src="https://images.unsplash.com/photo-1499336315816-097655dcfbda?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=2710&amp;q=80" alt=""/>
       <br/>
       <section className=" py-1 bg-blueGray-50">
       <div className="w-full lg:w-8/12 px-4 mx-auto mt-6">

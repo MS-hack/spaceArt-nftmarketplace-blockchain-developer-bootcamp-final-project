@@ -70,8 +70,8 @@ export default function MyAssets() {
       <div className="relative flex flex-col min-w-0 break-words bg-gray-50 w-full mb-6 shadow-xl rounded-lg -mt-64">
         <div className="px-6">
           
-        <br/><br/><br/><br/>
-        <div><h6>My assets</h6></div>
+        <br/><br/>
+        <div><h2 className="text-4xl py-2 text-center">My assets</h2></div>
           <div className="flex justify-center">
       <div className="shadow hover:shadow-lg transition duration-300 ease-in-out xl:mb-0 lg:mb-0 md:mb-0 mb-6 cursor-pointer group" style={{ maxWidth: '1100px'}}>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-4">
