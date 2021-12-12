@@ -18,8 +18,8 @@ export default function Home() {
   const [nfts, setNfts] = useState([])
   const [loadingState, setLoadingState] = useState('not-loaded')
   useEffect(() => {
-    loadNFTs()
-  }, [])
+    loadNFTs();
+  }, []);
   async function loadNFTs() {    
     const web3Modal = new Web3Modal({
       network: "mainnet",
@@ -31,6 +31,7 @@ export default function Home() {
     const tokenContract = new ethers.Contract(nftaddress, NFT.abi, provider)
     const marketContract = new ethers.Contract(nftmarketaddress, Market.abi, provider)
     const data = await marketContract.fetchMarketItems()
+    
     
     const items = await Promise.all(data.map(async i => {
       const tokenUri = await tokenContract.tokenURI(i.tokenId)
@@ -141,7 +142,7 @@ export default function Home() {
 				</div>
 
 
-    <br/><br/><br/><br/><br/><br/><br/><br/>
+    <br/>
     <div className="flex flex-wrap mt-0 justify-center">
         <div className="m-1">
           <a href="#" title="All Nft"
