@@ -12,8 +12,6 @@ import NFT from '../artifacts/contracts/NFT.sol/NFT.json'
 import Market from '../artifacts/contracts/Market.sol/NFTMarket.json'
 
 
-
-
 export default function Home() {
   const [nfts, setNfts] = useState([])
   const [loadingState, setLoadingState] = useState('not-loaded')
@@ -31,8 +29,10 @@ export default function Home() {
     const tokenContract = new ethers.Contract(nftaddress, NFT.abi, provider)
     const marketContract = new ethers.Contract(nftmarketaddress, Market.abi, provider)
     const data = await marketContract.fetchMarketItems()
-    
-    
+    if (data.length === 0){
+      var items =[]
+    }
+
     const items = await Promise.all(data.map(async i => {
       const tokenUri = await tokenContract.tokenURI(i.tokenId)
       const meta = await axios.get(tokenUri)
@@ -70,6 +70,7 @@ export default function Home() {
     console.log('data: ', data)
     
     
+   
     const items = await Promise.all(data.map(async i => {
       const tokenUri = await tokenContract.tokenURI(i.tokenId)
       const meta = await axios.get(tokenUri)
