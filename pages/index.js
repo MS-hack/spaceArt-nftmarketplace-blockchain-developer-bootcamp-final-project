@@ -29,9 +29,7 @@ export default function Home() {
     const tokenContract = new ethers.Contract(nftaddress, NFT.abi, provider)
     const marketContract = new ethers.Contract(nftmarketaddress, Market.abi, provider)
     const data = await marketContract.fetchMarketItems()
-    if (data.length === 0){
-      var items =[]
-    }
+    
 
     const items = await Promise.all(data.map(async i => {
       const tokenUri = await tokenContract.tokenURI(i.tokenId)
@@ -216,7 +214,7 @@ export default function Home() {
                //// </div>
               //</div>
 
-              <div className="w-65 " >  
+              <div key={i} className="w-65 " >  
             <div key={i} className="shadow hover:shadow-lg transition duration-300 ease-in-out xl:mb-0 lg:mb-0 md:mb-0 mb-6 cursor-pointer group">
                 <div className="overflow-hidden relative">
                 <img className="w-full h-56 transition duration-700 ease-in-out group-hover:opacity-60" src={nft.image} alt="image" />                    

@@ -7,6 +7,7 @@ function Marketplace({ Component, pageProps }) {
   return (
     
       <body>
+        
         <main className="bg-gray-50 font-abhaya-libre relative">
         <header className="h-24 sm:h-32 flex items-center absolute top-0 right-0 z-20">
         <div className="container mx-auto px-6 sm:px-12 flex items-center justify-end">
