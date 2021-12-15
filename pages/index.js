@@ -49,6 +49,7 @@ export default function Home() {
       }
       return item
     }))
+    console.log('items: ', items)
     setNfts(items)
     setLoadingState('loaded') 
   }
@@ -65,7 +66,7 @@ export default function Home() {
     const marketContract = new ethers.Contract(nftmarketaddress, Market.abi, provider)
     const data = await marketContract.getItemsByCategory(o)
     console.log('category: ', o)
-    console.log('data: ', data)
+    console.log('data2: ', data)
     
     
    
@@ -85,6 +86,7 @@ export default function Home() {
       }
       return item
     }))
+    console.log('items2: ', items)
     setNfts(items)
     setLoadingState('loaded') 
   }
@@ -103,9 +105,6 @@ export default function Home() {
     loadNFTs()
   }
  
-  if (loadingState === 'loaded' && !nfts.length) return
-   (<h1 className="px-20 py-10 text-3xl">No items in marketplace</h1>)
-
   return (
 
     <div>
@@ -193,7 +192,10 @@ export default function Home() {
     <div className="flex justify-center ">
       <div className="shadow hover:shadow-lg transition duration-300 ease-in-out xl:mb-0 lg:mb-0 md:mb-0 mb-6 cursor-pointer group" style={{ maxWidth: '1100px'}}>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-4">
-          {
+        <div>
+      {nfts.length===0 ? (
+   (<h1 className="px-20 py-10 text-3xl">No items in marketplace</h1>)
+      ) : (
             nfts.map((nft, i) => (
          
 
@@ -239,7 +241,8 @@ export default function Home() {
             </div>
        </div>
             ))
-          }
+      )}
+    </div>
         </div>
         </div>
     </div>
