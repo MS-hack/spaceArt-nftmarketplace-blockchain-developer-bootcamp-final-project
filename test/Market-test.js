@@ -1,6 +1,5 @@
-const Market= artifacts.require("Market");
-const NFT = artifacts.require("NFT");
-
+const { expect } = require("chai");
+const { ethers } = require("hardhat");
 
 contract("Market", function ( accounts ) {
 
