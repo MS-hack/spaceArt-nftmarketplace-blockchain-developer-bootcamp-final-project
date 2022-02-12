@@ -10,7 +10,6 @@
     "verify": "npx hardhat verify <contract address>"
   },
   "dependencies": {
-    "@nomiclabs/hardhat-ethers": "^2.0.2",
     "@nomiclabs/hardhat-etherscan": "^2.1.7",
     "@nomiclabs/hardhat-waffle": "^2.0.1",
     "@openzeppelin/contracts": "^4.3.2",
@@ -18,7 +17,6 @@
     "chai": "^4.3.4",
     "dotenv": "^10.0.0",
     "ethereum-waffle": "^3.4.0",
-    "ethers": "^5.4.1",
     "hardhat": "^2.4.1",
     "ipfs-http-client": "^50.1.2",
     "jsonwebtoken": "^8.5.1",
@@ -31,9 +29,11 @@
     "web3modal": "^1.9.3"
   },
   "devDependencies": {
+    "@nomiclabs/hardhat-ethers": "^2.0.4",
     "autoprefixer": "^10.2.6",
     "eslint": "7.29.0",
     "eslint-config-next": "11.0.1",
+    "ethers": "^5.5.4",
     "postcss": "^8.3.5",
     "tailwindcss": "^2.2.4"
   }

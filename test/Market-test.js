@@ -1,70 +1,50 @@
 const { expect } = require("chai");
 const { ethers } = require("hardhat");
 
-contract("Market", function ( accounts ) {
 
-  it("assert true", async function () {
-    await Market.deployed();
-    return assert.isTrue(true);
-  });
-  
-  it("admin role", async() => {
-    let NFTMarketIn = await Market.deployed();
-    let marketplaceOwner = await NFTMarketIn.getMarketplaceOwner.call();
-    let ADMIN_ROLE = web3.utils.soliditySha3('ADMIN_ROLE');
-    let isOwnerAnAdmin = await NFTMarketIn.hasRole(ADMIN_ROLE,marketplaceOwner);
-    assert.equal(isOwnerAnAdmin,true,"Owner should be the admin");
-  });
-
-  it('listing price of 25000000 gwei', async() => {
-    let NFTMarketIn = await Market.deployed();
-    let price = await NFTMarketIn.getListingPrice.call();
-    let listingPrice = web3.utils.toWei(price.toString(),'gwei');
-    let expectedPrice = web3.utils.toWei('25000000','gwei');
-    assert.equal(listingPrice,expectedPrice,'Price should be 25000000 gwei');
-  });
-  
-  describe('Change Price', async () => {
-    it('price should be 30000000 gwei',async() => {
-      let NFTMarketIn = await Market.deployed();
-      await NFTMarketIn.Pause({from:accounts[0]});
-      let changeListingPrice = await NFTMarketIn.changeListingPrice(30000000,{from: accounts[0]});
-      await NFTMarketIn.Unpause({from:accounts[0]});
-      let price = await NFTMarketIn.getListingPrice.call();
-      let listingPrice = web3.utils.toWei(price.toString(),'gwei');
-      let expectedPrice = web3.utils.toWei('30000000','gwei');
-      truffleAssert.eventEmitted(changeListingPrice,'logListingPriceChanged',(event) => {
-        return (event.newListingPrice == 30000000);
-      })
-      assert.equal(listingPrice,expectedPrice,'Price should be 30000000 gwei');
-    })
+describe("NFTMarket", function() {
+  before(function() {
+    this.timeout(10000) // 10 second timeout for setup
   })
+    it("Should mint and trade NFt", async function() {
 
-  describe('validator role', async () => {
-    it('grant validtor role',async () => {
-      let NFTMarketIn = await Market.deployed();
-      let validator = accounts[1];
-      let admin = await NFTMarketIn.getMarketplaceOwner.call();
-      let VALIDATOR_ROLE = web3.utils.soliditySha3('VALIDATOR_ROLE');
-      let grantValidator = await NFTMarketIn.grantValidator(validator,{from: admin});
-      let result = await NFTMarketIn.hasRole(VALIDATOR_ROLE,validator);
-      assert.equal(result,true,`${validator} should granted validator role`)
-      truffleAssert.eventEmitted(grantValidator,'RoleGranted',(event) => {
-        return (event.role == VALIDATOR_ROLE && event.account == validator && event.sender == admin);
-      })
-    })
+      /* test receive contracts addresses */
+      const Marketn = await ethers.getContractFactory('NFTMarket')
+      const marketn = await Marketn.deploy()
+      await marketn.deployed()
+      const marketAddress = marketn.address
 
-    it('revoke validtor role',async () => {
-      let NFTMarketIn = await Market.deployed();
-      let validator = accounts[1];
-      let admin = await NFTMarketIn.getMarketplaceOwner.call();
-      let VALIDATOR_ROLE = web3.utils.soliditySha3('VALIDATOR_ROLE');
-      let revokeValidator = await NFTMarketIn.revokeValidator(validator,{from: admin});
-      let result = await NFTMarketIn.hasRole(VALIDATOR_ROLE,validator);
-      assert.equal(result,false,`${validator} should revoked validator role`)
-      truffleAssert.eventEmitted(revokeValidator,'RoleRevoked',(event) => {
-        return (event.role == VALIDATOR_ROLE && event.account == validator && event.sender == admin);
-      })
-    })
-  })
+
+  /* test to receive listing price and aution price */
+      const NFt = await ethers.getContractFactory('NFT')
+      const nft = await NFt.deploy('marketAddress')
+      await nft.deployed() 
+      const nftContractAddress =nft.address
+
+      let listingPrice = await marketn.getListingPrice()
+      listingPrice = listingPrice.toString()
+  
+      const auctionPrice = ethers.utils.parseUnits('100', 'ether')
+
+        /* test for minting */
+        await nft.createToken('https-t1')
+        await nft.createToken('https-t2')
+        await marketn.createMarketItem(nftContractAddress , 1 ,auctionPrice ,0,{value: listingPrice})
+        await marketn.createMarketItem(nftContractAddress , 2 ,auctionPrice ,1 ,{value: listingPrice})
+
+        /* test for different addresses  from diffrent users  - test accounts */
+          /* return an array of however many addresses  */
+
+          const [_, buyerAddress] = await ethers.getSigners()
+
+          /* create a market sale with address , id and price  */
+          await marketn.connect(buyerAddress).createMarketSale(nftContractAddress , 1,{value: auctionPrice})
+
+          const items = await marketn.fetchMarketItems()
+
+          /* test  out all the items */
+           console.log ('items' , items )
+
+
 });
+}); 
